@@ -1,0 +1,83 @@
+	body{
+		margin: 0px;
+		padding: 0px;
+		width: 700px;
+		height: 800px;
+	}
+	#world{
+		background-color: black;
+		width: 540px;
+		height: 620px;
+		display: inline-block;
+
+	}
+	.wall{
+		border-top: 4px solid aqua;
+		border-bottom: 4px solid aqua;
+		display: inline-block;
+		background-color: aqua;
+		width: 20px;
+		height: 12px;
+		padding: 0px;
+		margin: 0px;
+		position: absolute;
+	}
+	.dot{
+		width: 20px;
+		height: 20px;
+		background-image: url("./images/dot.jpg");
+		background-size: 5px 5px;
+		background-repeat: no-repeat;
+		background-position: center;
+		position: absolute;
+
+	}
+	.empty{
+		border: 0px;
+		background-color: black;
+		display: inline-block;
+		width: 20px;
+		height: 20px;
+		padding: 0px;
+		margin: 0px;
+		position: absolute;
+
+	}
+	#pacman-right{
+		background-image: url("./images/mr-pacman-right.gif");
+		width: 20px;
+		height: 20px;
+		background-repeat: no-repeat;
+		background-position: center;
+		position: absolute;
+		background-size: 20px 20px;
+	}
+		#pacman-left{
+		background-image: url("./images/mr-pacman-left.gif");
+		width: 20px;
+		height: 20px;
+		background-repeat: no-repeat;
+		background-position: center;
+		position: absolute;
+		background-size: 20px 20px;
+	}
+		#pacman-up{
+		background-image: url("./images/mr-pacman-up.gif");
+		width: 20px;
+		height: 20px;
+		background-repeat: no-repeat;
+		background-position: center;
+		position: absolute;
+		background-size: 20px 20px;
+	}
+		#pacman-down{
+		background-image: url("./images/mr-pacman-down.gif");
+		width: 20px;
+		height: 20px;
+		background-repeat: no-repeat;
+		background-position: center;
+		position: absolute;
+		background-size: 20px 20px;
+	}
+
+

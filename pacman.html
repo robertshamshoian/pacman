@@ -1,0 +1,144 @@
+<html>
+<head>
+	<title>Pacman</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script type="text/javascript">
+
+	$(document).ready(function() {
+		var world = [
+		[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		[0,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,0],
+		[0,1,0,0,0,0,1,0,0,0,0,0,1,0,1,0,0,0,0,0,1,0,0,0,0,1,0],
+		[0,1,0,2,2,0,1,0,2,2,2,0,1,0,1,0,2,2,2,0,1,0,2,2,0,1,0],
+		[0,1,0,2,2,0,1,0,2,2,2,0,1,0,1,0,2,2,2,0,1,0,2,2,0,1,0],
+		[0,1,0,0,0,0,1,0,0,0,0,0,1,0,1,0,0,0,0,0,1,0,0,0,0,1,0],
+		[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],
+		[0,1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,1,0],
+		[0,1,0,2,2,0,1,0,1,0,2,2,2,2,2,2,2,0,1,0,1,0,2,2,0,1,0],
+		[0,1,0,0,0,0,1,0,1,0,0,0,0,2,0,0,0,0,1,0,1,0,0,0,0,1,0],
+		[0,1,1,1,1,1,1,0,1,1,1,1,0,2,0,1,1,1,1,0,1,1,1,1,1,1,0],
+		[0,0,0,0,0,0,1,0,0,0,0,2,0,0,0,2,0,0,0,0,1,0,0,0,0,0,0],
+		[2,2,2,2,2,0,1,0,2,2,2,2,2,2,2,2,2,2,2,0,1,0,2,2,2,2,2],
+		[2,2,2,2,2,0,1,0,2,0,0,0,0,0,0,0,0,0,2,0,1,0,2,2,2,2,2],
+		[2,2,2,2,2,0,1,0,2,0,2,2,2,2,2,2,2,0,2,0,1,0,2,2,2,2,2],
+		[0,0,0,0,0,0,1,0,2,0,2,2,2,2,2,2,2,0,2,0,1,0,0,0,0,0,0],
+		[2,2,2,2,2,2,1,2,2,0,2,2,2,2,2,2,2,0,2,2,1,2,2,2,2,2,2],
+		[0,0,0,0,0,0,1,0,2,0,0,0,0,0,0,0,0,0,2,0,1,0,0,0,0,0,0],
+		[2,2,2,2,2,0,1,0,2,2,2,2,2,2,2,2,2,2,2,0,1,0,2,2,2,2,2],
+		[2,2,2,2,2,0,1,0,1,0,0,0,0,0,0,0,0,0,1,0,1,0,2,2,2,2,2],
+		[2,2,2,2,2,0,1,0,1,0,2,2,2,2,2,2,2,0,1,0,1,0,2,2,2,2,2],
+		[0,0,0,0,0,0,1,0,1,0,0,0,0,2,0,0,0,0,1,0,1,0,0,0,0,0,0],
+		[0,1,1,1,1,1,1,1,1,1,1,1,0,2,0,1,1,1,1,1,1,1,1,1,1,1,0],
+		[0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0],
+		[0,1,0,0,2,0,1,1,1,1,1,1,1,3,1,1,1,1,1,1,1,0,2,0,0,1,0],
+		[0,1,1,0,2,0,1,0,1,0,0,0,0,0,0,0,0,0,1,0,1,0,2,0,1,1,0],
+		[0,0,1,0,2,0,1,0,1,0,2,2,2,2,2,2,2,0,1,0,1,0,2,0,1,0,0],
+		[0,0,1,0,0,0,1,0,1,0,0,0,0,2,0,0,0,0,1,0,1,0,0,0,1,0,0],
+		[0,1,1,1,1,1,1,0,1,1,1,1,0,2,0,1,1,1,1,0,1,1,1,1,1,1,0],
+		[0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0],
+		[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],
+		[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		];
+		var direction= 'left';	
+		function drawWorld () {
+			var top = 0;
+			var left= 0;
+			for (x in world) {
+				for (y in world[x]) {
+					if (world[x][y] == 0) {
+						$( "#world" ).append("<div class='wall'style='top:"+top+"px;left:"+left+"px;'></div>" );
+						left+=20;
+					}
+					else if(world[x][y] == 1) {
+						$( "#world" ).append("<div class='dot'style='top:"+top+"px;left:"+left+"px;'></div>" );
+						left+=20;
+					}
+					else if(world[x][y] == 2) {
+						$( "#world" ).append("<div class='empty'style='top:"+top+"px;left:"+left+"px;'></div>");
+						left+=20;
+					}
+					else if(world[x][y] == 3) {
+						$( "#world" ).append("<div id='pacman-"+direction+"'style='top:"+top+"px;left:"+left+"px;'></div>");
+						left+=20;
+					}
+				}
+				left= 0;
+				top+=20;
+			};
+		}
+		drawWorld();
+//pacman starts at x.24 y.13
+var pacman = {
+	x: 24,
+	y: 13
+};
+$(document).keyup(function(e){
+	if(e.keyCode == 40){
+//down
+// $(document).keydown(function(e){
+// 	e.preventDefault();
+// })
+if(world[pacman.x+1][pacman.y] == 1 || world[pacman.x+1][pacman.y] == 2 ) {
+	world[pacman.x][pacman.y]=2;
+	world[pacman.x+1][pacman.y]=3;
+	pacman.x+=1;
+	direction = 'down';
+	$( "#world" ).empty();
+	drawWorld();
+}
+}
+if(e.keyCode == 38){
+//up
+// $(document).keydown(function(e){
+// 	e.preventDefault();
+// })
+if(world[pacman.x-1][pacman.y] == 1 || world[pacman.x-1][pacman.y] == 2) {
+	world[pacman.x][pacman.y]=2;
+	world[pacman.x-1][pacman.y]=3;
+	pacman.x-=1;
+	direction = 'up';
+	$( "#world" ).empty();
+	drawWorld();
+}
+}
+if(e.keyCode == 37){
+//left
+// $(document).keydown(function(e){
+// 	e.preventDefault();
+// })
+if(world[pacman.x][pacman.y-1] == 1 || world[pacman.x][pacman.y-1] == 2) {
+	world[pacman.x][pacman.y]=2;
+	world[pacman.x][pacman.y-1]=3;
+	pacman.y-=1;
+	direction = 'left';
+	$( "#world" ).empty();
+	drawWorld();
+}
+}
+if(e.keyCode == 39){
+//left
+// $(document).keydown(function(e){
+// 	e.preventDefault();
+// })
+if(world[pacman.x][pacman.y+1] == 1 || world[pacman.x][pacman.y+1] == 2) {
+	world[pacman.x][pacman.y]=2;
+	world[pacman.x][pacman.y+1]=3;
+	pacman.y+=1;
+	direction = 'right';
+	$( "#world" ).empty();
+	drawWorld();
+}            	
+}			
+});
+
+})
+</script>
+</head>
+<body>
+	<div id='world'>
+	</div>
+	<img src="./images/ms-pacman.gif" width='30px' height='30px'>
+
+</body>
+</html>
